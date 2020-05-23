@@ -21,10 +21,13 @@ RUN mkdir -p "$GHOST_INSTALL"; \
     mkdir -p "$GHOST_INSTALL"/core/dist; \
     mkdir -p "$GHOST_CONTENT"; \
     mkdir -p "$GHOST_CONTENT"/data; \
+    mkdir -p "$GHOST_CONTENT"/images; \
+    mkdir -p "$GHOST_CONTENT"/settings; \
+    # mkdir -p "$GHOST_CONTENT"/themes; \
     touch "$GHOST_CONTENT"/data/ghost.db;
 
-COPY content/images "$GHOST_CONTENT"/images
-COPY content/settings "$GHOST_CONTENT"/settings
+# COPY content/images "$GHOST_CONTENT"/images
+# COPY content/settings "$GHOST_CONTENT"/settings
 COPY content/themes "$GHOST_CONTENT"/themes
 COPY core/built "$GHOST_INSTALL"/core/built
 COPY core/client/dist "$GHOST_INSTALL"/core/client/dist
