@@ -23,7 +23,6 @@ RUN mkdir -p "$GHOST_INSTALL"; \
     mkdir -p "$GHOST_CONTENT"/data; \
     mkdir -p "$GHOST_CONTENT"/images; \
     mkdir -p "$GHOST_CONTENT"/settings; \
-    # mkdir -p "$GHOST_CONTENT"/themes; \
     touch "$GHOST_CONTENT"/data/ghost.db;
 
 # COPY content/images "$GHOST_CONTENT"/images
