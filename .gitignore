@@ -93,7 +93,7 @@ projectFilesBackup
 *.db-journal
 
 .build
-.dist
+# .dist
 .tmp
 
 /core/server/data/export/exported*
@@ -122,6 +122,6 @@ test/coverage
 
 # Built asset files
 # /core/built
-/core/server/web/admin/views/*.html
-/core/server/public/ghost.min.css
+# /core/server/web/admin/views/*.html
+# /core/server/public/ghost.min.css
 /**/node_modules/*
