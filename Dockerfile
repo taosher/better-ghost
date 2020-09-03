@@ -25,7 +25,8 @@ RUN mkdir -p "$GHOST_INSTALL"; \
     mkdir -p "$GHOST_CONTENT"/logs; \
     mkdir -p "$GHOST_CONTENT"/images; \
     mkdir -p "$GHOST_CONTENT"/settings; \
-    touch "$GHOST_CONTENT"/data/ghost.db;
+    touch "$GHOST_CONTENT"/data/ghost.db; \
+    echo "0:0:0:0 blog.hzlab.maezia.com" >> /etc/hosts
 
 # COPY content/images "$GHOST_CONTENT"/images
 # COPY content/settings "$GHOST_CONTENT"/settings
