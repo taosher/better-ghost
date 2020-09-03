@@ -24,7 +24,7 @@
     "start": "node index",
     "start:static": "",
     "start:admin": "",
-    "dev": "DEBUG=ghost:* grunt dev",
+    "dev": "GHOST_CLI_VERSION=1.13.1 GHOST_INSTALL=. GHOST_CONTENT=./content DEBUG=ghost:* NODE_ENV=development grunt dev",
     "test": "grunt validate",
     "ci": "grunt validate --verbose",
     "ci:regression": "grunt test-regression --verbose",

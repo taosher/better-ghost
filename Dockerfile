@@ -15,6 +15,7 @@ ENV GHOST_CONTENT /var/lib/ghost/content
 ENV GHOST_HOST 0.0.0.0
 ENV GHOST_PORT 2368
 ENV GHOST_URL http://localhost:2368
+ENV NODE_ENV production
 
 RUN mkdir -p "$GHOST_INSTALL"; \
     mkdir -p "$GHOST_INSTALL"/core; \
