@@ -1,12 +1,11 @@
 {
+    "url": "http://localhost:2368",
     "database": {
-        "client": "mysql",
+        "client": "sqlite3",
         "connection": {
-            "host"     : "127.0.0.1",
-            "user"     : "root",
-            "password" : "",
-            "database" : "ghost"
-        }
+            "filename": "content/data/ghost.db"
+        },
+        "debug": false
     },
     "paths": {
         "contentPath": "content/"
@@ -16,6 +15,6 @@
         "rotation": {
             "enabled": true
         },
-        "transports": ["file", "stdout"]
+        "transports": ["stdout"]
     }
 }
