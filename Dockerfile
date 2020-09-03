@@ -22,6 +22,7 @@ RUN mkdir -p "$GHOST_INSTALL"; \
     mkdir -p "$GHOST_INSTALL"/core/dist; \
     mkdir -p "$GHOST_CONTENT"; \
     mkdir -p "$GHOST_CONTENT"/data; \
+    mkdir -p "$GHOST_CONTENT"/logs; \
     mkdir -p "$GHOST_CONTENT"/images; \
     mkdir -p "$GHOST_CONTENT"/settings; \
     touch "$GHOST_CONTENT"/data/ghost.db;
