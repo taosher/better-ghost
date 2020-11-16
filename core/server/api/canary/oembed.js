@@ -126,7 +126,7 @@ function fetchOembedData(_url) {
     // <link rel="alternate" type="application/json+oembed"> element
     return request(url, {
         method: 'GET',
-        timeout: 2 * 1000,
+        timeout: 20 * 1000,
         followRedirect: true,
         headers: {
             'user-agent': 'Ghost(https://github.com/TryGhost/Ghost)'
@@ -158,7 +158,7 @@ function fetchOembedData(_url) {
             return request(oembedUrl, {
                 method: 'GET',
                 json: true,
-                timeout: 2 * 1000,
+                timeout: 20 * 1000,
                 headers: {
                     'user-agent': 'Ghost(https://github.com/TryGhost/Ghost)'
                 }
