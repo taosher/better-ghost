@@ -57,6 +57,7 @@ WORKDIR $GHOST_INSTALL
     # su-exec node yarn add "sqlite3@$sqlite3Version" --force --build-from-source; \
     # apk del --no-network .build-deps; \
 # RUN apk add --no-cache 'su-exec>=0.2' ; \
+
 # USER node
 
 RUN su-exec node yarn --prod=true --verbose; \
