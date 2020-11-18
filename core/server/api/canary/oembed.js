@@ -76,18 +76,24 @@ const findUrlWithProvider = (url) => {
 };
 
 function unknownProvider(url) {
-    return Promise.reject(new common.errors.ValidationError({
-        message: common.i18n.t('errors.api.oembed.unknownProvider'),
-        context: url
-    }));
+    return Promise.resolve({
+        url
+    });
+    // return Promise.reject(new common.errors.ValidationError({
+    //     message: common.i18n.t('errors.api.oembed.unknownProvider'),
+    //     context: url
+    // }));
 }
 
 function knownProvider(url) {
-    return extract(url, {maxwidth: 1280}).catch((err) => {
-        return Promise.reject(new common.errors.InternalServerError({
-            message: err.message
-        }));
+    return Promise.resolve({
+        url
     });
+    // return extract(url, {maxwidth: 1280}).catch((err) => {
+    //     return Promise.reject(new common.errors.InternalServerError({
+    //         message: err.message
+    //     }));
+    // });
 }
 
 function isIpOrLocalhost(url) {
