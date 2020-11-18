@@ -241,8 +241,9 @@ module.exports = {
         query({data}) {
             let {url, type} = data;
             // fix 对url长度做限制  猜测url太长会导致服务挂掉？？？
-            const urlLen = decodeURIComponent(url).length;
-            if (url && urlLen > 200) {
+            const realUrl = decodeURIComponent(url);
+            const urlLen = realUrl.length;
+            if (url && (realUrl.indexOf('https://mp.weixin.qq.com') !== -1 || urlLen > 200)) {
                 return Promise.resolve({
                     url
                 });
