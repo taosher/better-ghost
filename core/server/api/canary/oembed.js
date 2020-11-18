@@ -29,6 +29,7 @@ async function fetchBookmarkData(url, html) {
             });
             html = response.body;
         }
+        
         scraperResponse = await metascraper({html, url});
     } catch (err) {
         // return Promise.reject(err);
@@ -239,7 +240,13 @@ module.exports = {
         options: [],
         query({data}) {
             let {url, type} = data;
-
+            // fix 对url长度做限制  猜测url太长会导致服务挂掉？？？
+            const urlLen = decodeURIComponent(url).length;
+            if (url && urlLen > 200) {
+                return Promise.resolve({
+                    url
+                });
+            }
             if (type === 'bookmark') {
                 return fetchBookmarkData(url)
                     .catch(() => unknownProvider(url));
