@@ -1,5 +1,6 @@
-const common = require('../../lib/common');
-const {extract, hasProvider} = require('oembed-parser');
+// const common = require('../../lib/common');
+// const {extract, hasProvider} = require('oembed-parser');
+const {hasProvider} = require('oembed-parser');
 const Promise = require('bluebird');
 const request = require('../../lib/request');
 const cheerio = require('cheerio');
@@ -30,7 +31,10 @@ async function fetchBookmarkData(url, html) {
         }
         scraperResponse = await metascraper({html, url});
     } catch (err) {
-        return Promise.reject(err);
+        // return Promise.reject(err);
+        return Promise.resolve({
+            url
+        });
     }
 
     const metadata = Object.assign({}, scraperResponse, {
@@ -118,6 +122,7 @@ function fetchOembedData(_url) {
     // parse the url then validate the protocol and host to make sure it's
     // http(s) and not an IP address or localhost to avoid potential access to
     // internal network endpoints
+    // let receiveResponse = false;
     if (isIpOrLocalhost(_url)) {
         return unknownProvider();
     }
@@ -128,11 +133,19 @@ function fetchOembedData(_url) {
         return knownProvider(url);
     }
 
+    // setTimeout(() => {
+    //     console.log('time is limit');
+    //     if (!receiveResponse){
+    //         return Promise.resolve({
+    //             url
+    //         });
+    //     }
+    // },1);
     // url not in oembed list so fetch it in case it's a redirect or has a
     // <link rel="alternate" type="application/json+oembed"> element
     return request(url, {
         method: 'GET',
-        timeout: 20 * 1000,
+        timeout: 10 * 1000,
         followRedirect: true,
         headers: {
             'user-agent': 'Ghost(https://github.com/TryGhost/Ghost)'
@@ -164,13 +177,14 @@ function fetchOembedData(_url) {
             return request(oembedUrl, {
                 method: 'GET',
                 json: true,
-                timeout: 20 * 1000,
+                timeout: 10 * 1000,
                 headers: {
                     'user-agent': 'Ghost(https://github.com/TryGhost/Ghost)'
                 }
             }).then((response) => {
                 // validate the fetched json against the oembed spec to avoid
                 // leaking non-oembed responses
+                // receiveResponse = false;
                 const body = response.body;
                 const hasRequiredFields = body.type && body.version;
                 const hasValidType = ['photo', 'video', 'link', 'rich'].includes(body.type);
@@ -206,7 +220,9 @@ function fetchOembedData(_url) {
                     // return the extracted object, don't pass through the response body
                     return oembed;
                 }
-            }).catch(() => {});
+            }).catch(() => {
+                unknownProvider(url);
+            });
         }
     });
 }
