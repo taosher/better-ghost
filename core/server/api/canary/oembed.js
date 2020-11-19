@@ -243,29 +243,30 @@ module.exports = {
             // fix 对url长度做限制  猜测url太长会导致服务挂掉？？？
             const realUrl = decodeURIComponent(url);
             const urlLen = realUrl.length;
-            if (url && (realUrl.indexOf('https://mp.weixin.qq.com') !== -1 || urlLen > 200)) {
+            if (url && (realUrl.indexOf('https://mp.weixin.qq.com') >= 0 || urlLen > 200)) {
                 return Promise.resolve({
                     url
                 });
-            }
-            if (type === 'bookmark') {
-                return fetchBookmarkData(url)
-                    .catch(() => unknownProvider(url));
-            }
-
-            return fetchOembedData(url).then((response) => {
-                if (!response && !type) {
-                    return fetchBookmarkData(url);
+            } else {
+                if (type === 'bookmark') {
+                    return fetchBookmarkData(url)
+                        .catch(() => unknownProvider(url));
                 }
-                return response;
-            }).then((response) => {
-                if (!response) {
+    
+                return fetchOembedData(url).then((response) => {
+                    if (!response && !type) {
+                        return fetchBookmarkData(url);
+                    }
+                    return response;
+                }).then((response) => {
+                    if (!response) {
+                        return unknownProvider(url);
+                    }
+                    return response;
+                }).catch(() => {
                     return unknownProvider(url);
-                }
-                return response;
-            }).catch(() => {
-                return unknownProvider(url);
-            });
+                });
+            }
         }
     }
 };
